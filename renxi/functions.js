@@ -39,8 +39,8 @@ $(window).resize(function() {
 
 function timeElapse(date){
 	var current = Date();
-	var seconds = (Date.parse(current) - Date.parse(date)) / 1000;
-	var days = Math.floor(seconds / (3600 * 24));
+	var seconds = (Date.parse(current) - Date.parse("2013-02-15 16:06:06")) / 1000;
+	//var days = Math.floor(seconds / (3600 * 24));
 	seconds = seconds % (3600 * 24);
 	var hours = Math.floor(seconds / 3600);
 	if (hours < 10) {
@@ -55,6 +55,19 @@ function timeElapse(date){
 	if (seconds < 10) {
 		seconds = "0" + seconds;
 	}
-	var result = "第 <span class=\"digit\">" + days + "</span> 天 <span class=\"digit\">" + hours + "</span> 小时 <span class=\"digit\">" + minutes + "</span> 分钟 <span class=\"digit\">" + seconds + "</span> 秒"; 
+	var result = "第 <span class=\"digit\">" + datedifference(current, "2013-02-15 16:06:06") + "</span> 天 <span class=\"digit\">" + hours + "</span> 小时 <span class=\"digit\">" + minutes + "</span> 分钟 <span class=\"digit\">" + seconds + "</span> 秒"; 
 	$("#clock").html(result);
 }
+
+ //两个时间相差天数 兼容firefox chrome
+    function datedifference(sDate1, sDate2) {    //sDate1和sDate2是2006-12-18格式  
+        var dateSpan,
+            tempDate,
+            iDays;
+        sDate1 = Date.parse(sDate1);
+        sDate2 = Date.parse(sDate2);
+        dateSpan = sDate2 - sDate1;
+        dateSpan = Math.abs(dateSpan);
+        iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
+        return iDays
+    };
